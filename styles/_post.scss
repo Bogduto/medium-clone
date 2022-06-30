@@ -1,0 +1,51 @@
+.post {
+  padding: 45px 206px 35px 206px;
+
+  &_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .logo {
+      width: 45px;
+      cursor: pointer;
+      transition: ease 0.4s;
+    }
+
+    .edit {
+        margin-left: 45px;
+      background: #1a8917;
+      border-radius: 15px;
+      font-size: 14px;
+      color: #fff;
+      text-transform: capitalize;
+      padding: 10px 25px;
+      cursor: pointer;
+    }
+  }
+  &_content {
+    padding-top: 35px;
+    display: grid;
+  gap: 20px;
+    .title {
+      color: rgba(41, 41, 41, 1);
+      font-weight: 600;
+      font-size: 22px;
+      &:first-child {
+        font-size: 32px;
+        font-weight: 700;
+      }
+    }
+    .paragraph {
+      font-size: 20px;
+      font-weight: 400;
+      color: rgba(41, 41, 41, 1);
+      line-height: 32px;
+      letter-spacing: -0.003em;
+    }
+
+    .code {
+      background: rgba(242, 242, 242, 1);
+      padding: 15px;
+    }
+  }
+}
