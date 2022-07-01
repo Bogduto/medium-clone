@@ -6,7 +6,7 @@
     display: flex;
     align-items: center;
     .logo {
-      width: 35px;
+      min-width: 35px;
       height: 24px;
     }
 
@@ -16,7 +16,7 @@
       border-radius: 15px;
       font-size: 14px;
       color: #fff;
-      padding: 10px 15px;
+      padding: 4px 15px;
       cursor: pointer;
     }
     .draft {
@@ -56,4 +56,29 @@
   float: left;
   height: 0;
   pointer-events: none;
+}
+
+
+@media screen and (max-width: 1030px) {
+  .history {
+    padding: 20px;
+    .top  {
+      // display: flex;
+      // justify-content: space-between;
+      .publish {
+        margin-left: 20px;
+     padding: 4px 15px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .top  {
+    display: flex;
+    justify-content: space-between;  
+    .draft {
+      display: none;
+    }
+  }
 }
