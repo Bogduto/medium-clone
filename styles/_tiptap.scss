@@ -1,0 +1,68 @@
+.ProseMirror p.is-editor-empty:first-child::before {
+  color: #adb5bd;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.canvas {
+  transition: 0.5s;
+  margin-top: 25px;
+  padding-bottom: 25px;
+  min-height: 500px;
+
+  &__toggle {
+    margin-bottom: 25px;
+    &__btn {
+      display: inline-block;
+      cursor: pointer;
+      padding: 10px 40px;
+      transition: ease 0.5s;
+      border-radius: 6px;
+      font-size: 14px;
+      background-color: #000;
+      color: #fff;
+      margin-right: 15px;
+      text-transform: capitalize;
+      font-weight: 700;
+      &:hover {
+        color: rgb(175, 167, 167);
+      }
+    }
+  }
+  &__editor {
+    padding: 10px 0;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+
+    &__paragraph,
+    &__text {
+      letter-spacing: 0.01rem;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 21px;
+      line-height: 1.58;
+      letter-spacing: -0.003em;
+    }
+    &__title {
+      font-weight: 700;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+    &__img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      margin: 10px 0;
+    }
+  }
+
+  div {
+    outline: none;
+    font-size: 20px;
+  }
+}

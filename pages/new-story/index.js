@@ -1,33 +1,102 @@
-import Tiptap from '../../components/Tiptap';
-import React from 'react'
+import { useSession } from 'next-auth/react'
+import { TipTap, Loading } from '../../components/'
+import { useForm } from 'react-hook-form'
+import React, { useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
+import axios from 'axios'
+import Router from 'next/router'
+
 const WrittingHistory = () => {
+    const { data: session, status } = useSession()
+    const { handleSubmit, watch, setValue, error } = useForm({
+        defaultValues: { image: null, title: null, description: null, content: null, author: null },
+    });
+
+    const { image } = watch()
+    useEffect(() => {
+        setValue("author", session && session.user.email)
+    }, [session])
+
+    const handleInput = useRef(null)
+
+    const handleClick = (e) => {
+        handleInput.current.click()
+    }
+
+    const handleRemoveImage = () => {
+        setValue('image', null)
+    }
+
+    const handleAddImage = async (e) => {
+        try {
+            const formData = new FormData()
+            await formData.append('image', e.target.files[0])
+            const { data } = await axios.post('http://localhost:3001/upload', formData)
+            setValue('image', `http://localhost:3001${data.url}`)
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    const addContent = (e) => {
+        setValue("content", e)
+    }
+
+    const handleCreate = handleSubmit(async (data) => {
+        try {
+            console.log(data);
+            await axios.post('http://localhost:3001/createPost', data)
+            Router.push('/')
+        } catch (err) {
+            console.log(err);
+        }
+    })
+
+    if (!session) return (
+        <div>
+            <h3>Иди нахуй</h3>
+            <Link href='/'>back</Link>
+        </div>)
+
+    if (status === "loading") return <Loading />
     return (
         <div className='history'>
-            <div className="top">
-                <div className="logo">
-                    <Link href="/">
-                        <a>
-                            <svg viewBox="0 0 1043.63 592.71" >
-                            <g data-name="Layer 2"><g data-name="Layer 1">
-                                <path d="M588.67 296.36c0 163.67-131.78 296.35-294.33 296.35S0 460 0 296.36 131.78 0 294.34 0s294.33 132.69 294.33 296.36M911.56 296.36c0 154.06-65.89 279-147.17 279s-147.17-124.94-147.17-279 65.88-279 147.16-279 147.17 124.9 147.17 279M1043.63 296.36c0 138-23.17 249.94-51.76 249.94s-51.75-111.91-51.75-249.94 23.17-249.94 51.75-249.94 51.76 111.9 51.76 249.94"></path>
-                            </g></g>
-                            </svg>
-                        </a>
-                    </Link>
-                </div>
-                <div className='draft'>
-                    Draft in 
-                    <span className='gmail'>bogdanbogdanvakulenka@gmail.com</span>
+            <form onSubmit={handleCreate} className='form'>
+                <div className="history__top">
+                    <div className="history__top-left">
+                        <div className='history__top-left-draft'>
+                            Draft in
+                            <span className='history__top-left-draft--gmail'>{session && session.user.email}</span>
+                        </div>
+                    </div>
+                    <div className="history__top-right">
+                        <button className="history__top-right-publish" type='submit'>publish</button>
+                    </div>
+
+
+
                 </div>
 
-                <div className="publish">
-                    publish
+                <div className='form__col'>
+                    {!image && <button type="button" className="form__col__btn" onClick={handleClick}>Добавить картинку</button>}
+                    <input type="file" hidden ref={handleInput} onChange={handleAddImage} />
+                    {image && <div className='form__col__image'>
+                        <img src={image} />
+                        <div onClick={handleRemoveImage} className='form__col__image-close'>
+                            <img src="https://img.icons8.com/ios-glyphs/30/000000/delete-sign.png" />
+                        </div>
+                    </div>}
                 </div>
-            </div>
-            <div className="canvas">
-                <Tiptap />
-            </div>
+                <div className='form__col'>
+                    <label className='form__col__text'>title</label>
+                    <input className='form__col__input' type="text" id='title' onChange={(e) => setValue("title", e.target.value)} placeholder='title post' />
+                </div>
+                <div className='form__col'>
+                    <label className='form__col__text'>description</label>
+                    <textarea minLength={10} maxLength={500} className='form__col__textarea' type="text" onChange={(e) => setValue("description", e.target.value)} placeholder='description' />
+                </div>
+                <TipTap addContent={addContent} placeholder="Tell your story" />
+            </form>
         </div>
     )
 }

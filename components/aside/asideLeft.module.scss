@@ -1,0 +1,103 @@
+.aside_left {
+  border-right: 1px solid rgba(230, 230, 230, 1);
+  background: #fff;
+  width: 100px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+  &_content {
+    padding: 40px 0;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo {
+      width: 45px;
+      cursor: pointer;
+      transition: ease 0.4s;
+    }
+
+    .user {
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      position: relative;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 100px;
+      }
+    }
+
+    svg {
+      &:hover {
+        transition: ease-in-out 0.3s;
+        path {
+          stroke: #000;
+        }
+      }
+
+      path {
+        stroke: rgba(117, 117, 117, 1);
+      }
+    }
+
+    .items {
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+      .item {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .aside_left {
+    width: 100%;
+    height: 75px;
+    position: absolute;
+    border-right: none;
+    border-bottom: 1px solid rgba(230, 230, 230, 1);
+    &_content {
+      flex-direction: row;
+      padding: 0 40px;
+      .items {
+        flex-direction: row;
+        display: flex;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .aside_left {
+    &_content {
+      padding: 0 15px;
+    }
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .aside_left {
+    &_content {
+      .items {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .aside_left {
+    &_content {
+      padding: 0 15px;
+    }
+  }
+}

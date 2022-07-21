@@ -1,0 +1,57 @@
+.burger {
+  position: absolute;
+  inset: auto auto 0px 0px;
+  transform: translate(35px, -88px);
+  box-shadow: rgb(230 230 230) 0px 1px 4px;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgba(230, 230, 230, 1);
+  transition: ease 0.5s;
+  border-radius: 4px;
+  width: 250px;
+  &__inner {
+    position: relative;
+    &_close {
+      display: none;
+      cursor: pointer;
+    }
+    ul {
+      flex-direction: column;
+      display: flex;
+      li {
+        cursor: pointer;
+        display: inline-block;
+        padding: 25px 15px;
+        transition: ease 0.5s;
+        &:hover {
+          background: rgb(219, 212, 212);
+        }
+        a {
+          color: rgba(0, 0, 0, 0.8);
+          font-size: 15px;
+          font-weight: 600;
+          text-transform: capitalize;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .burger {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    transform: translate(0);
+    z-index: 10000;
+    display: block;
+    &__inner {
+      &_close {
+        position: absolute;
+        right: 20px;
+        top: 25px;
+        display: block;
+      }
+    }
+  }
+}
